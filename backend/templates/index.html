@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rice Leaf Disease Detection</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 60px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Rice Leaf Disease Detection</h2>
+
+<form action="/predict" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" required>
+    <br>
+    <button type="submit">Predict</button>
+</form>
+
+{% if prediction %}
+<div class="result">
+    <b>Prediction:</b> {{ prediction }} <br>
+    <b>Confidence:</b> {{ confidence }} %
+</div>
+{% endif %}
+
+</body>
+</html>

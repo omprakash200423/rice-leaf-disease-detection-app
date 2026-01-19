@@ -1,12 +1,17 @@
-import streamlit as st
-import os
 import gdown
+import os
 from tensorflow.keras.models import load_model
-from PIL import Image
-import numpy as np
 
 MODEL_PATH = "resnet50_finetuned.h5"
-GDRIVE_URL = "https://drive.google.com/uc?id=1GPYJZLF87XS-J2KrnGmxMdxiLIR8rP18"
+FILE_ID = "1GPYJZLF87XS-J2KrnGmxMdxiLIR8rP18"
+GDRIVE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
+
+if not os.path.exists(MODEL_PATH):
+    gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False)
+
+model = load_model(MODEL_PATH)
+
+
 
 # Download model if not exists
 if not os.path.exists(MODEL_PATH):

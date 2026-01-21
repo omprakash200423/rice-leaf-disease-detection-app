@@ -46,6 +46,49 @@ if uploaded_file is not None:
     if st.button("Predict"):
         pred = model.predict(img)
         idx = np.argmax(pred)
+        predicted_class = CLASSES[idx]
 
-        st.success(f"Prediction: {CLASSES[idx]}")
+
+        st.success(f"Prediction: {predicted_class}")
         st.info(f"Confidence: {pred[0][idx]*100:.2f}%")
+
+
+        recommendations = {
+            "Brown Spot": {
+                "DO": "Spray Mancozeb, use proper fertilizer",
+                "DONT": "Do not keep field dry",
+                "Severity": "Medium",
+                "Action": "Spray within 5 days",
+                "Safety": "Wear mask and gloves"
+            },
+            "Leaf Blast": {
+                "DO": "Spray Tricyclazole, keep spacing",
+                "DONT": "Do not use excess urea",
+                "Severity": "High",
+                "Action": "Spray immediately",
+                "Safety": "Avoid spraying during rain"
+            },
+            "Leaf Scald": {
+                "DO": "Spray Carbendazim, clean field",
+                "DONT": "Do not reuse infected seeds",
+                "Severity": "Medium",
+                "Action": "Spray within 3–5 days",
+                "Safety": "Wash hands after spraying"
+            },
+            "Sheath Blight": {
+                "DO": "Spray Validamycin, remove infected plants",
+                "DONT": "Do not plant too close",
+                "Severity": "High",
+                "Action": "Spray immediately",
+                "Safety": "Keep chemicals away from children"
+            }
+        }
+
+        if predicted_class in recommendations:
+            rec = recommendations[predicted_class]
+            st.subheader("🌾 Disease Recommendation")
+            st.write("**DO:**", rec["DO"])
+            st.write("**DON’T:**", rec["DONT"])
+            st.write("**Severity:**", rec["Severity"])
+            st.write("**When to act:**", rec["Action"])
+            st.write("**Safety tip:**", rec["Safety"])
